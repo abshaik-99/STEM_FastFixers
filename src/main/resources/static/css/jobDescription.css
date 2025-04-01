@@ -1,0 +1,141 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298); /* Deep Blue Gradient */
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+/* Solid Container with No Transparency */
+.container {
+    max-width: 1000px;
+    background: linear-gradient(135deg, #e98181, #4b2f2f); /* Dark Grey Gradient */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px;
+    align-items: start;
+}
+
+/* Left Side: Job Details */
+.job-details {
+    text-align: left;
+    padding-right: 20px;
+}
+
+/* Right Side: Media */
+.file-container {
+    text-align: center;
+}
+
+.file-container video {
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Headings */
+
+h2 {
+    color: #350b40 !important;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+h2, h3, h4 {
+    color: #ffcc00 ;
+    margin-bottom: 20px;
+}
+
+/* Job Details */
+p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+/* Contact Details */
+.contact-info {
+    font-weight: bold;
+    color: #ffcc00;
+}
+
+/* Bidding Section */
+.bidding-section {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #333333, #444444); /* Subtle Dark Gradient */
+    border-radius: 12px;
+    text-align: left;
+}
+
+/* Input Fields */
+.bidding-section label {
+    font-size: 14px;
+    color: #ddd;
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #444, #555);
+    color: #fff;
+    outline: none;
+    font-size: 16px;
+}
+
+/* Modern Button */
+button {
+    background: linear-gradient(135deg, #ffcc00, #ff5733);
+    color: #121212;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(255, 87, 51, 0.4);
+}
+
+button:hover {
+    background: linear-gradient(135deg, #ff5733, #ffcc00);
+    transform: translateY(-2px);
+}
+
+/* Back Button */
+a {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #ff5733;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+    }
+}

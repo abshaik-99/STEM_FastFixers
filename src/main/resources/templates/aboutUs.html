@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Handyman Jobs</title>
+	<link rel="stylesheet" href="/css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<script defer src="/js/script.js"></script>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<img th:src="@{/images/logos/STEM FASTFIXERS_logo1.jpg}" alt="Handyman Jobs Logo" style="height: 150px; width: auto;">
+			<a class="navbar-brand" href="/">
+				<h1>HANDYMAN SERVICES</h1>
+			</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/aboutus">About Us</a></li>
+					<li class="nav-item"><a class="nav-link" href="/api/job/findjob">Find a Job</a></li>
+					<li class="nav-item"><a class="nav-link" href="/api/job/postjob">Post a Job</a></li>
+					<li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+					<li class="nav-item"><a class="nav-link" href="/auth/register">Register</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<main class="site-body">
+			<div class="container mt-5">
+				<h1 class="text-center mb-4">About STEM FastFixers: Your Home Service Ally</h1>
+				<div class="row mb-5">
+					<div class="col-md-6">
+						<h2>Let us be your first phone call…</h2>
+						<p>At STEM FastFixers, we've got a unique and budget-friendly way to make life easier for busy adults and seniors. We're here to provide premium, trustworthy handyman services, take care of your home inside and out, and offer specialized senior modifications to keep your home safe.</p>
+						<p>Our goal? To help you keep your home in tip-top shape. From fixing odds and ends to keeping your place well-maintained year-round, and even making those senior-friendly changes, we've got you covered. And the best part? You can trust us to feel safe. Our experienced technicians are background checked, bonded and insured. Need help around the house? We’ve got you covered.</p>
+					</div>
+					<div class="col-md-6">
+						<img src="/images/AboutUs02.jpg" alt="Description of image" class="img-fluid rounded shadow-lg">
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-6">
+						<img src="/images/AboutUs03.jpeg" alt="Handyman Services" class="img-fluid rounded shadow-lg">
+					</div>
+					<div class="col-md-6">
+						<h2>Hey Seniors!</h2>
+						<p><strong>We are certified Senior Safety Specialists helping you stay in your home longer with comfort, safety and dignity.</strong></p>
+						<p>We provide an extra hand, year-round approach to upkeep so seniors can stay at home for years to come. In addition to ongoing maintenance, repairs, deep cleaning, and yard work, we also provide senior home safety assessments, senior home modifications, seasonal projects, and Home Ally Maintenance Plan perfect for busy adults and seniors aging in place.</p>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-6">
+						<h2>Are You Part of a Busy Family?</h2>
+						<p><strong>Let us handle your to-do list so that you can spend more time doing what you love.</strong></p>
+						<p>For busy families, we can handle anything from emergency repairs to household chores and kitchen and bath makeovers. We also provide affordable maintenance plans that include maintenance and minor repairs and projects to help make your life run more smoothly.</p>
+						<p>And to further our commitment to you, through our maintenance plans we offer a dedicated Technician to oversee all services and ensure that you enjoy convenient, hassle-free, and worry-free living.</p>
+					</div>
+					<div class="col-md-6">
+						<img src="/images/AboutUs01.jpg" alt="Handyman Services" class="img-fluid rounded shadow-lg">
+					</div>
+				</div>
+				<div class="row mb-5">
+					<div class="col-md-6">
+						<h2>A Local Company with a World-Class National Reputation</h2>
+						<p>STEM Fastfixers has more than 9 locations across the country with over 1500 national Google reviews averaging 4.9 stars. With that world-class rating comes premium handyman and remodeling services.</p>
+						<p>And to top it off, all locations are locally owned and operated, so you can feel confident in supporting a local business, backed by a national, growing company.</p>
+						<p>For you, this means better value and the highest quality of services. Our tradesmen are bonded and insured, and all employees are carefully vetted. We guarantee the work that we do - so you can confidently trust us to handle all of your home maintenance needs.</p>
+					</div>
+				</div>
+			</div>
+		</main>
+
+	<footer class="bg-dark text-white py-4">
+		<div class="container text-center">
+			<p class="mb-2">Handyman Services</p>
+			<address>
+				123 Main Street, Suite 400<br>
+				Springfield, IL 62701<br>
+				Phone: (555) 123-4567<br>
+				Email: <a href="mailto:support@handyman.com" class="text-white">support@handyman.com</a>
+			</address>
+			<p class="mt-3">
+				&copy; 2025 Handyman Services. All rights reserved.
+			</p>
+		</div>
+	</footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

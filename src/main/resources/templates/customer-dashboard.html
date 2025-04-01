@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .sidebar {
+            background-color: rgb(109, 196, 180);
+            border-right: 1px solid rgb(204, 195, 112);
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+            width: 250px;
+        }
+
+        .sidebar .list-group-item {
+            border: none;
+            border-radius: 0;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            background-color: rgb(213, 183, 107);
+            cursor: pointer;
+        }
+
+        .sidebar .list-group-item:hover {
+            background-color: rgb(150, 125, 189);
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <img th:src="@{/images/logos/STEM FASTFIXERS_logo1.jpg}" alt="Handyman Jobs Logo" style="height: 50px; width: auto;">
+            <a class="navbar-brand" href="/">
+                <h1>HANDYMAN SERVICES</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auth/aboutus">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api/job/findjob">Find a Job</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api/job/postjob">Post a Job</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sidebar">
+        <div class="list-group">
+            <a href="/profile" class="list-group-item list-group-item-action">Profile</a>
+            <a href="/api/job/jobs_posted" class="list-group-item list-group-item-action">Jobs posted</a>
+            <a href="/api/job/postjob" class="list-group-item list-group-item-action">Post a Job</a>
+            <a href="/handymen" class="list-group-item list-group-item-action">Handymen List</a>
+        </div>
+    </div>
+
+    <div class="content" id="content">
+        <h2>Welcome to the Customer Dashboard</h2>
+        <p>Here you can find and post jobs.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

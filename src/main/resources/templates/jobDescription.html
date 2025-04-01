@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Description</title>
+    <link defer rel="stylesheet" href="/css/jobDescription.css">
+    <link defer rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Job Details Section -->
+        <h2 id="title">Job Title</h2>
+        <p><strong>Location:</strong> <span id="location"></span></p>
+        <p><strong>Budget:</strong> $<span id="budget"></span></p>
+        <p><strong>Service:</strong> <span id="service"></span></p>
+        <p><strong>Description:</strong></p>
+        <p id="description"></p>
+        <p><strong>Contact Details:</strong> <span id="contactDetails"></span></p>
+
+        <!-- Display Image/Video Section -->
+        <div id="fileSection">
+            <h3>Attached File</h3>
+            <div id="fileDisplay"></div>
+        </div>
+
+        <!-- Bidding Section -->
+        <div class="bidding-section">
+            <h3>Place a Bid</h3>
+            <label for="bidAmount">Bid Amount (€):</label>
+            <input type="number" id="bidAmount" required>
+        
+            <label for="deliveryDays">Delivery Days:</label>
+            <input type="number" id="deliveryDays" required>
+        
+            <button onclick="submitBid()">Submit Bid</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pathParts = window.location.pathname.split("/");
+            const jobId = pathParts[pathParts.length - 1];
+
+            if (!jobId || isNaN(jobId)) {
+                document.body.innerHTML = "<h3>Invalid job ID</h3>";
+                return;
+            }
+
+            fetch(`/api/job/${jobId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Job not found");
+                    return response.json();
+                })
+                .then(job => {
+                    document.getElementById("title").innerText = job.title;
+                    document.getElementById("location").innerText = job.location;
+                    document.getElementById("budget").innerText = job.budget;
+                    document.getElementById("service").innerText = job.service;
+                    document.getElementById("description").innerText = job.description;
+                    document.getElementById("contactDetails").innerText = job.contactDetails || "Not provided";
+
+                    // Display the image or video if it exists
+                    if (job.fileType && job.fileType.startsWith("video/")) {
+                        let fileDisplay = document.getElementById("fileDisplay");
+                        
+                        // Clear previous content (in case multiple videos are loaded)
+                        fileDisplay.innerHTML = "";
+                    
+                        let videoElement = document.createElement("video");
+                        videoElement.setAttribute("controls", "true");
+                        videoElement.style.maxWidth = "100%";
+                        videoElement.style.height = "auto";
+                    
+                        let sourceElement = document.createElement("source");
+                        sourceElement.src = `/api/job/file/${job.id}`;
+                        sourceElement.type = job.fileType;
+                    
+                        // Handle video load errors
+                        sourceElement.onerror = function () {
+                            fileDisplay.innerHTML = "<p style='color:red;'>Error loading video.</p>";
+                        };
+                    
+                        videoElement.appendChild(sourceElement);
+                        fileDisplay.appendChild(videoElement);
+                    } else {
+                        document.getElementById("fileSection").style.display = "none";
+                    }
+                    
+                })
+                .catch(error => {
+                    console.error("Error fetching job:", error);
+                    document.body.innerHTML = "<h3>Job not found</h3>";
+                });
+        });
+
+        // Fetch the logged-in user
+        async function getLoggedInUser() {
+            try {
+                const response = await fetch("/api/user/me"); // API to get logged-in username
+                if (!response.ok) throw new Error("Failed to fetch user");
+                return await response.json();
+            } catch (error) {
+                console.error("Error fetching logged-in user:", error);
+                return null;
+            }
+        }
+
+        async function submitBid() {
+            const jobId = window.location.pathname.split("/").pop();
+            const bidAmount = document.getElementById("bidAmount").value;
+            const deliveryDays = document.getElementById("deliveryDays").value;
+
+            if (!bidAmount || !deliveryDays) {
+                alert("Please fill all fields!");
+                return;
+            }
+
+            const authentication = await getLoggedInUser(); // Get Authentication object
+            if (authentication == null || !authentication.isAuthenticated()) {
+                alert("You must be logged in to submit a bid.");
+                return;
+            }
+            const bidderName = authentication.getName(); // Get the actual logged-in user
+
+            const bidData = {
+                jobId: jobId,
+                bidderName: bidderName, // Using actual username now
+                bidAmount: parseFloat(bidAmount),
+                deliveryDays: parseInt(deliveryDays),
+            };
+
+            fetch("/api/bids/submit", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bidData),
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.location.href = "/api/job/appliedJobs"; // Redirect to applied jobs page
+            })
+            .catch(error => console.error("Error submitting bid:", error));
+        }
+    </script>
+</body>
+</html>

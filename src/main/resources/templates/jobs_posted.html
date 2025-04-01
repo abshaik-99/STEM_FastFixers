@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Posted Jobs - Handyman Services</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #cce7e8, #f3f3f3);
+        }
+
+        .card {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card img, .card video {
+            max-height: 200px;
+            object-fit: cover;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .card-body {
+            padding: 15px;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Posted Jobs</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="postedJobsList">
+            <!-- Jobs will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/api/job')
+                .then(response => response.json())
+                .then(jobs => {
+                    const postedJobsList = document.getElementById('postedJobsList');
+                    postedJobsList.innerHTML = '';
+
+                    if (jobs.length === 0) {
+                        postedJobsList.innerHTML = '<p class="text-center text-muted">No jobs posted yet.</p>';
+                    } else {
+                        jobs.forEach(job => {
+                            const jobItem = document.createElement('div');
+                            jobItem.className = 'col';
+
+                            let mediaContent = '';
+                            if (job.fileType && job.fileType.startsWith("image/")) {
+                                mediaContent = `<img src="/api/job/file/${job.id}" class="card-img-top" alt="Job Image">`;
+                            } else if (job.fileType && job.fileType.startsWith("video/")) {
+                                mediaContent = `
+                                    <video controls class="card-img-top">
+                                        <source src="/api/job/file/${job.id}" type="${job.fileType}">
+                                        Your browser does not support the video tag.
+                                    </video>`;
+                            }
+
+                            jobItem.innerHTML = `
+                                <div class="card">
+                                    ${mediaContent}
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title fw-bold">${job.title}</h5>
+                                        <p class="card-text">${job.description}</p>
+                                        <p class="card-text"><small class="text-muted">${job.location}</small></p>
+                                        <p class="card-text"><strong>Budget:</strong> $${job.budget}</p>
+                                    </div>
+                                </div>
+                            `;
+                            postedJobsList.appendChild(jobItem);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching posted jobs:', error);
+                    postedJobsList.innerHTML = '<p class="text-center text-danger">Error fetching posted jobs.</p>';
+                });
+        });
+    </script>
+</body>
+
+</html>

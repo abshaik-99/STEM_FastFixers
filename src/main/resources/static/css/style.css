@@ -1,0 +1,613 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Body */
+body {
+    background: linear-gradient(to right, rgb(184, 233, 211), rgb(210, 222, 238));
+    color: #333;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+/* Section Styling */
+section {
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background: linear-gradient(45deg, #00BFAE, #28C76F);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    padding: 1.25rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand h1 {
+    font-size: 30px;
+    margin-left: 20px;
+    text-shadow: 2px 2px 4px rgb(255, 128, 192);
+    color: rgb(168, 0, 84);
+}
+
+.navbar-brand img {
+    max-height: 40px;
+    margin-right: 12px;
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+    color: #555 !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-nav .nav-link:hover {
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Services Section */
+.services-section {
+    background-color: rgb(255, 255, 128);
+    padding: 60px 10px;
+}
+
+.service-item {
+    padding: 16px;
+    background: rgb(197, 156, 167);
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease-in-out;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+}
+
+.service-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* Header Section */
+header {
+    background: linear-gradient(45deg, #9978bb, #5b11ef);
+    color: white;
+    padding: 150px 0;
+    text-align: center;
+    box-shadow: inset 0 0 300px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+
+header p {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    font-weight: 300;
+    animation: fadeIn 2s ease-out forwards;
+}
+
+/* Form Elements */
+header form input,
+header form button {
+    border-radius: 50px;
+    padding: 15px;
+    font-size: 1.1rem;
+    transition: 0.3s ease;
+}
+
+header form input {
+    width: 60%;
+}
+
+header form input:focus {
+    outline: none;
+    border: 2px solid #00BFAE;
+    box-shadow: 0 0 8px rgba(0, 191, 174, 0.4);
+}
+
+header form button {
+    background-color: #fff;
+    color: #333;
+    border: none;
+    cursor: pointer;
+}
+
+header form button:hover {
+    background-color: #00BFAE;
+    color: #fff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 191, 174, 0.5);
+}
+
+/* Testimonials Section */
+.testimonials {
+    background: linear-gradient(45deg, #FDC830, #F37335);
+    padding: 60px 20px;
+}
+
+.testimonial-card {
+    background-color: rgb(252, 202, 141);
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    text-align: center;
+    transition: 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Stats Section */
+.stats-section {
+    background: linear-gradient(45deg, rgb(0, 128, 128), rgb(141, 157, 205));
+    padding: 50px 0;
+}
+
+.stat-card {
+    transition: 0.3s ease-in-out;
+    background-color: rgb(162, 172, 125);
+}
+
+.stat-card:hover {
+    transform: scale(1.05);
+}
+
+.counter {
+    font-size: 2rem;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #00BFAE;
+}
+
+/* Contact Us Section */
+.contact {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(50px);
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact {
+        width: 90%;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes count {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/* Contact Section */
+.contact {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+}
+
+/* Shiny Border Effect */
+.contact::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 16px;
+    background: linear-gradient(45deg, rgba(255, 77, 77, 0.7), rgba(255, 165, 77, 0.7), rgba(77, 148, 255, 0.7));
+    z-index: -1;
+    filter: blur(6px);
+    opacity: 0.8;
+}
+
+/* Form Heading */
+.contact h2 {
+    font-size: 2rem;
+    color: rgb(128, 0, 64);
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+.input-group input, 
+.textarea-group textarea {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    color: rgb(64, 0, 64);
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    outline: none;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Focus Effect */
+.input-group input:focus, 
+.textarea-group textarea:focus {
+    border-color: #ff4d4d;
+    box-shadow: 0px 0px 10px rgba(255, 77, 77, 0.5);
+}
+
+/* Labels */
+.input-group label, 
+.textarea-group label {
+    position: absolute;
+    top: 14px;
+    left: 12px;
+    font-size: 1rem;
+    color: rgb(142, 255, 142);
+    pointer-events: none;
+    transition: 0.3s ease;
+}
+
+/* Float Label Effect */
+.input-group input:focus ~ label,
+.input-group input:valid ~ label,
+.textarea-group textarea:focus ~ label,
+.textarea-group textarea:valid ~ label {
+    top: -20px;
+    left: 8px;
+    font-size: 0.9rem;
+    color: rgb(0, 208, 208);
+}
+
+/* Error Messages */
+.input-group .error-txt, 
+.textarea-group .error-txt {
+    font-size: 14.5px;
+    color: #ff4d4d;
+    text-align: left;
+    display: none;
+}
+
+/* Submit Button */
+.btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #ff4d4d, #ffa64d);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+/* Button Hover Effect */
+.btn:hover {
+    background: linear-gradient(45deg, #ff3333, #ff8533);
+    box-shadow: 0px 4px 12px rgba(255, 77, 77, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact {
+        width: 90%;
+    }
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Search Job Section */
+.search-job-section {
+    background: linear-gradient(to right, rgb(128, 255, 255), #e9ecef);
+    border-left: 5px solid rgb(248, 230, 7);
+}
+
+.search-job-section h2 {
+    color: rgb(64, 0, 64) !important;
+}
+
+/* Form Controls */
+.input-group-text {
+    background-color: rgb(192, 192, 192);
+    border-right: 0;
+}
+
+.form-control,
+.form-select {
+    border-left: 0;
+    box-shadow: none;
+}
+
+/* Primary Buttons */
+.btn-primary {
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(45deg, #00BFAE, #28C76F);
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #28C76F, #00BFAE);
+}
+
+/* Post Job Section */
+.post-job-section {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards */
+.card {
+    background: rgb(219, 196, 179) !important;
+    animation: fadeInUp 0.5s ease-in-out;
+}
+
+/* Login Links */
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Register Page */
+.form-container {
+    background: rgb(190, 107, 107);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* About Us Page */
+.site-body {
+    background: linear-gradient(to bottom, #eef2f7, #ffffff);
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    padding: 80px 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+/* Global Styling */
+h1, h2 {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #003366;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #0073e6;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    h1 { font-size: 2.4rem; }
+    h2 { font-size: 1.6rem; }
+    p { font-size: 1rem; }
+}
+
+/* News Feed Style */
+.feed-container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.feed-item {
+    background: rgb(243, 240, 240);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.feed-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-right: 10px;
+}
+
+.feed-header .poster-info {
+    font-size: 14px;
+}
+
+.feed-header .poster-info span {
+    font-weight: bold;
+    display: block;
+}
+
+.feed-header small {
+    color: #777;
+}
+
+.feed-content h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #0056b3;
+    cursor: pointer;
+}
+
+.feed-content h4:hover {
+    text-decoration: underline;
+}
+
+.feed-content p {
+    color: #444;
+    margin: 5px 0;
+}
+
+.feed-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.feed-footer button {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+}
+
+.feed-footer button:hover {
+    color: #0073b1;
+}
+
+.comment-section {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 5px;
+}
+
+.comment-input {
+    width: 80%;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.post-comment-btn {
+    padding: 5px 10px;
+    background: #0073b1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.post-comment-btn:hover {
+    background: #005580;
+}
+
+.comments-list {
+    margin-top: 10px;
+}
+
+.comment-item {
+    background: white;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.feed-video {
+    width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    object-fit: cover;
+}

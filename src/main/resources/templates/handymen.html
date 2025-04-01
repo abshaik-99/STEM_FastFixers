@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Registered Handymen - Handyman Services</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .recommended-tag {
+            background-color: #0dcaf0;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            z-index: 10;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .card-container {
+            position: relative;
+            padding-top: 20px; /* Adds space so tag is not hidden */
+        }
+        .card {
+            position: relative;
+            z-index: 5; /* Ensures the tag stays above the card */
+            background-color: #f8e8d5; /* Matches your reference */
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2>Registered Handymen</h2>
+        <div class="row" id="handymenList">
+            <!-- Handymen will be dynamically loaded here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/handymen')
+                .then(response => response.json())
+                .then(handymen => {
+                    const handymenList = document.getElementById('handymenList');
+                    handymenList.innerHTML = '';
+        
+                    if (handymen.length === 0) {
+                        handymenList.innerHTML = '<p class="text-center text-muted">No handymen registered yet.</p>';
+                    } else {
+                        handymen.forEach((handyman, index) => { // Add 'index' as a second parameter
+                            const handymanItem = document.createElement('div');
+                            handymanItem.className = 'col-md-4';
+        
+                            // Show recommendation only for every 5th handyman (1-based indexing)
+                            const isRecommended = (index + 1) % 2 === 0;
+                            const recommendationTag = isRecommended ? `<span class="recommended-tag">Recommended by STEM FastFixers</span>` : '';
+        
+                            handymanItem.innerHTML = `
+                                <div class="card-container">
+                                    ${recommendationTag}
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${handyman.name}</h5>
+                                            <p class="card-text"><strong>Email:</strong> ${handyman.email}</p>
+                                            <p class="card-text"><strong>Phone:</strong> ${handyman.phoneNumber}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                            handymenList.appendChild(handymanItem);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching handymen:', error);
+                    const handymenList = document.getElementById('handymenList');
+                    handymenList.innerHTML = '<p class="text-center text-danger">Error fetching handymen.</p>';
+                });
+        });
+        
+    </script>
+</body>
+
+</html>

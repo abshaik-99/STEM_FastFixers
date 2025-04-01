@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Applied Jobs</title>
+    <link defer rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Your Applied Jobs</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Job ID</th>
+                    <th>Bid Amount ($)</th>
+                    <th>Delivery Days</th>
+                </tr>
+            </thead>
+            <tbody id="bidsTable"></tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            async function getLoggedInUser() {
+                try {
+                    cconst response = await fetch("/api/user/me", { credentials: "include" });
+                    if (!response.ok) {
+                        if (response.status === 401) {
+                            // Handle Unauthorized error (e.g., redirect to login)
+                            window.location.href = "/api/login"; 
+                        } else {
+                            throw new Error("Failed to fetch user: " + response.statusText);
+                        }
+                    }
+                    return await response.json(); // Assuming authentication returns { "name": "JohnDoe" }
+                } catch (error) {
+                    console.error("Error fetching logged-in user:", error);
+                    return null;
+                }
+            }
+
+            getLoggedInUser()
+                .then(userData => {
+                    if (!userData) {
+                        // Handle case where user is not logged in
+                        alert("You must be logged in to view your applied jobs.");
+                        return;
+                    }
+
+                    const bidderName = userData.name; // Extract username from the response
+
+                    fetch(`/api/bids/user/${bidderName}`, { credentials: "include" })
+                        .then(response => response.json())
+                        .then(bids => {
+                            const tableBody = document.getElementById("bidsTable");
+                            bids.forEach(bid => {
+                                const row = document.createElement("tr");
+                                row.innerHTML = `
+                                    <td>${bid.jobId}</td>
+                                    <td>${bid.bidAmount}</td>
+                                    <td>${bid.deliveryDays}</td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        })
+                        .catch(error => console.error("Error fetching applied jobs:", error));
+                })
+                .catch(error => console.error("Error fetching user:", error));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Profile Page</title>
+  <link defer rel="stylesheet" href="./css/profile.css">
+  <link defer rel="stylesheet" href="./css/style.css">
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <img th:src="@{/images/logos/STEM FASTFIXERS_logo1.jpg}" alt="Handyman Jobs Logo" style="height: 50px; width: auto;">
+        <a class="navbar-brand" href="/">
+            <h1>HANDYMAN SERVICES</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/api/job/postjob">Post a Job</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <img src="https://placehold.co/150" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        <input type="file" id="upload-picture" accept="image/*" style="display: none;">
+        <button id="upload-button">Upload Picture</button>
+        <h1 id="name">John Doe</h1>
+        <p class="headline" id="headline">Software Engineer at XYZ Company</p>
+        <p class="location" id="location">San Francisco, CA</p>
+        <button id="edit-button">Edit Profile</button>
+      </div>
+
+    <!-- About/Summary Section -->
+    <div class="profile-section">
+      <h2>About</h2>
+      <p id="about">I am a passionate software engineer with 5+ years of experience in building scalable web applications. I specialize in JavaScript, React, and Node.js.</p>
+      <textarea id="about-input" class="edit-input" style="display: none;"></textarea>
+    </div>
+
+    <!-- Work Experience -->
+    <div class="profile-section">
+      <h2>Work Experience</h2>
+      <ul id="experience-list">
+        <li>
+          <h3>XYZ Company - Software Engineer</h3>
+          <p>2020 - Present</p>
+          <p>Developed and maintained web applications using React and Node.js.</p>
+        </li>
+      </ul>
+      <div id="experience-form" style="display: none;">
+        <input type="text" id="experience-company" placeholder="Company">
+        <input type="text" id="experience-position" placeholder="Position">
+        <input type="text" id="experience-dates" placeholder="Dates">
+        <textarea id="experience-description" placeholder="Description"></textarea>
+        <button id="add-experience">Add Experience</button>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="profile-section">
+      <h2>Skills</h2>
+      <ul id="skills-list">
+        <li>JavaScript</li>
+        <li>React</li>
+        <li>Node.js</li>
+      </ul>
+      <div id="skills-form" style="display: none;">
+        <input type="text" id="new-skill" placeholder="Add a skill">
+        <button id="add-skill">Add Skill</button>
+      </div>
+    </div>
+  </div>
+
+  
+  <script defer src="./js/profile.js"></script>
+  <script defer src="./js/script.js"></script>
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Profile Page</title>
+  <link defer rel="stylesheet" href="./css/profile.css">
+  <link defer rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <img th:src="@{/images/logos/STEM FASTFIXERS_logo1.jpg}" alt="Handyman Jobs Logo" style="height: 50px; width: auto;">
+        <a class="navbar-brand" href="/">
+            <h1>HANDYMAN SERVICES</h1>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/api/job/postjob">Post a Job</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+  <div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <img src="https://placehold.co/150" alt="Profile Picture" class="profile-pic" id="profile-pic">
+        <input type="file" id="upload-picture" accept="image/*" style="display: none;">
+        <button id="upload-button">Upload Picture</button>
+        
+        <h1 id="name" th:text="${user.name}">Handyman: John Doe</h1>
+        <p class="headline" id="headline">Handyman at Handyman Services</p>
+        <p class="location" id="location">San Francisco, CA</p>
+        <p id="email" th:text="${user.email}">john.doe@example.com</p>
+        
+        <button id="edit-button">Edit Profile</button>
+    </div>
+
+    <!-- About/Summary Section -->
+    <div class="profile-section">
+      <h2>About</h2>
+      <p id="about">I am a passionate handyman skilled in various home improvement and repair services.</p>
+      <textarea id="about-input" class="edit-input" style="display: none;"></textarea>
+    </div>
+
+    <!-- Work Experience -->
+    <div class="profile-section">
+      <h2>Work Experience</h2>
+      <ul id="experience-list">
+        <li>
+          <h3>XYZ Company - Handyman</h3>
+          <p>2018 - Present</p>
+          <p>Providing plumbing, electrical, and general repair services.</p>
+        </li>
+      </ul>
+      <div id="experience-form" style="display: none;">
+        <input type="text" id="experience-company" placeholder="Company">
+        <input type="text" id="experience-position" placeholder="Position">
+        <input type="text" id="experience-dates" placeholder="Dates">
+        <textarea id="experience-description" placeholder="Description"></textarea>
+        <button id="add-experience">Add Experience</button>
+      </div>
+    </div>
+
+    <!-- Skills -->
+    <div class="profile-section">
+      <h2>Skills</h2>
+      <p id="skills" th:text="${user.skills}">Plumbing, Electrical</p>
+      <ul id="skills-list">
+        <li>Plumbing</li>
+        <li>Electrical</li>
+      </ul>
+      <div id="skills-form" style="display: none;">
+        <input type="text" id="new-skill" placeholder="Add a skill">
+        <button id="add-skill">Add Skill</button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="./js/profile.js"></script>
+  <script defer src="./js/script.js"></script>
+</body>
+</html>

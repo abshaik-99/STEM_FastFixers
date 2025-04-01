@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Find a Job - Handyman Services</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script defer src="/js/script.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <img th:src="@{/images/logos/STEM FASTFIXERS_logo1.jpg}" alt="Handyman Jobs Logo" style="height: 150px; width: auto;">
+            <a class="navbar-brand" href="/">
+                <h1>HANDYMAN SERVICES</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auth/aboutus">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api/job/findjob">Find a Job</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/api/job/postjob">Post a Job</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auth/login">Login</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/auth/register">Register</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <section class="search-job-section bg-light p-5 rounded shadow-sm">
+            <h2 class="text-center mb-3 text-primary">Find Your Next Job</h2>
+            <p class="text-center text-muted">
+                Search for trusted home services like repairs, cleaning, and assembly.
+                Enter your location and preferred job category to get started.
+            </p>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="input-group input-group-lg shadow-sm">
+                        <span class="input-group-text"><i class="bi bi-geo-alt-fill text-primary"></i></span>
+                        <input type="text" class="form-control" id="locationInput"
+                            placeholder="Enter city or ZIP code (e.g., Springfield, IL)">
+                        <input type="text" class="form-control" id="jobTitleInput" placeholder="Enter job title (e.g., Plumber)">
+                        <button class="btn btn-primary" onclick="searchJobs()">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="jobResults" class="mt-5">
+            <h3 class="text-center mb-4 text-success">Available Job Listings</h3>
+            <div id="jobList" class="feed-container">
+                <!-- Jobs will be dynamically loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-2">Handyman Services</p>
+            <address>
+                123 Main Street, Suite 400<br>
+                Springfield, IL 62701<br>
+                Phone: (555) 123-4567<br>
+                Email: <a href="mailto:support@handyman.com" class="text-white">support@handyman.com</a>
+            </address>
+            <p class="mt-3">&copy; 2025 Handyman Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <script>
+        async function searchJobs() {
+            const location = document.getElementById('locationInput').value;
+            const jobTitle = document.getElementById('jobTitleInput').value;
+        
+            const response = await fetch(`/api/job/search?location=${location}&title=${jobTitle}`);
+            const jobs = await response.json();
+        
+            const jobList = document.getElementById('jobList');
+            jobList.innerHTML = ''; // Clear previous results
+        
+            jobs.forEach(job => {
+                const jobItem = document.createElement('div');
+                jobItem.className = 'feed-item';
+                jobItem.dataset.jobId = job.id;
+        
+                jobItem.innerHTML = `
+                    <div class="feed-header">
+                        <div class="profile-pic"></div>
+                        <div class="poster-info">
+                            <span>${job.postedBy}</span>
+                            <small>${job.timeAgo} ago</small>
+                        </div>
+                    </div>
+                    <div class="feed-content">
+                        <h4>${job.title}</h4>
+                        <p>${job.description}</p>
+                        <small><strong>Location:</strong> ${job.location} | <strong>Budget:</strong> $${job.budget}</small>
+                        <div class="file-container" id="fileDisplay-${job.id}"></div> <!-- Video/Media Section -->
+                    </div>
+                    
+                    <div class="feed-footer">
+                        <button class="like-btn">👍 Like (<span class="like-count">0</span>)</button>
+                        <button class="comment-btn">💬 Comment</button>
+                        <button class="repost-btn">🔄 Repost</button>
+                        <button class="apply-btn">Apply</button>
+                    </div>
+                    <div class="comment-section" style="display: none;">
+                        <input type="text" class="comment-input" placeholder="Write a comment..." />
+                        <button class="post-comment-btn">Post</button>
+                        <div class="comments-list"></div>
+                    </div>
+                `;
+        
+                // Like button functionality
+                const likeBtn = jobItem.querySelector(".like-btn");
+                const likeCount = jobItem.querySelector(".like-count");
+                let likeCounter = 0; 
+        
+                likeBtn.addEventListener("click", function () {
+                    likeCounter++;
+                    likeCount.textContent = likeCounter;
+                });
+
+                
+        
+                // Comment section functionality
+                const commentBtn = jobItem.querySelector(".comment-btn");
+                const commentSection = jobItem.querySelector(".comment-section");
+                const commentInput = jobItem.querySelector(".comment-input");
+                const postCommentBtn = jobItem.querySelector(".post-comment-btn");
+                const commentsList = jobItem.querySelector(".comments-list");
+        
+                commentBtn.addEventListener("click", function () {
+                    commentSection.style.display = commentSection.style.display === "none" ? "block" : "none";
+                });
+        
+                postCommentBtn.addEventListener("click", function () {
+                    if (commentInput.value.trim() !== "") {
+                        const newComment = document.createElement("p");
+                        newComment.textContent = commentInput.value;
+                        newComment.classList.add("comment-item");
+                        commentsList.appendChild(newComment);
+                        commentInput.value = ""; // Clear input after posting
+                    }
+                });
+        
+                // Repost functionality
+                const repostBtn = jobItem.querySelector(".repost-btn");
+                repostBtn.addEventListener("click", function () {
+                    const clonePost = jobItem.cloneNode(true);
+                    document.getElementById('jobList').prepend(clonePost);
+                });
+        
+                // Apply button functionality
+                jobItem.querySelector(".apply-btn").addEventListener('click', async function() {
+                    try {
+                        const response = await fetch('/api/check-session1');
+                        const data = await response.json();
+            
+                        if (data.loggedIn) {
+                            window.location.href = `/api/job/description/${job.id}`;
+                        } else {
+                            alert('You need to register or login first.');
+                            window.location.href = '/auth/login';
+                        }
+                    } catch (error) {
+                        console.error('Error checking session:', error);
+                    }
+                });
+
+                if (job.fileType && job.fileType.startsWith("video/")) {
+                    let fileDisplay = jobItem.querySelector(`#fileDisplay-${job.id}`);
+        
+                    let videoElement = document.createElement("video");
+                    videoElement.setAttribute("controls", "true");
+                    videoElement.setAttribute("playsinline", "true");
+                    videoElement.setAttribute("preload", "metadata");
+                    videoElement.className = "feed-video";
+        
+                    let sourceElement = document.createElement("source");
+                    sourceElement.src = `/api/job/file/${job.id}`;
+                    sourceElement.type = job.fileType;
+        
+                    sourceElement.onerror = function () {
+                        fileDisplay.innerHTML = "<p style='color:red;'>Error loading video.</p>";
+                    };
+        
+                    videoElement.appendChild(sourceElement);
+                    fileDisplay.appendChild(videoElement);
+                }
+        
+                jobList.appendChild(jobItem);
+            });
+        }
+        
+        // Fetch all jobs on page load
+        document.addEventListener("DOMContentLoaded", function() {
+            searchJobs();
+        });
+        
+        
+    </script>
+</body>
+
+</html>
